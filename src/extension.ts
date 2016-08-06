@@ -13,6 +13,7 @@ import { DartReferenceProvider } from "./providers/dart_reference_provider";
 import { DartDiagnosticProvider } from "./providers/dart_diagnostic_provider";
 import { DartFormattingEditProvider } from "./providers/dart_formatting_edit_provider";
 import { DartHoverProvider } from "./providers/dart_hover_provider";
+import { DartSignatureHelpProvider } from "./providers/dart_signature_help_provider";
 import { DartIndentFixer } from "./dart_indent_fixer";
 import { DartDocumentSymbolProvider } from "./providers/dart_document_symbol_provider";
 import { DartWorkspaceSymbolProvider } from "./providers/dart_workspace_symbol_provider";
@@ -63,6 +64,8 @@ export function activate(context: vs.ExtensionContext) {
 	context.subscriptions.push(vs.languages.registerDocumentSymbolProvider(DART_MODE, new DartDocumentSymbolProvider(analyzer)));
 	context.subscriptions.push(vs.languages.registerReferenceProvider(DART_MODE, new DartReferenceProvider(analyzer)));
 	context.subscriptions.push(vs.languages.registerWorkspaceSymbolProvider(new DartWorkspaceSymbolProvider(analyzer)));
+	// TODO: Finish this
+    //context.subscriptions.push(vscode.languages.registerSignatureHelpProvider(DART_MODE, new DartSignatureHelpProvider(analyzer), "(", ","));
 	context.subscriptions.push(new AnalyzerStatusReporter(analyzer));
 
 	// Set up diagnostics.
