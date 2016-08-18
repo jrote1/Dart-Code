@@ -9,6 +9,7 @@ import { AnalyzerStatusReporter } from "./analyzer_status_reporter";
 import { config } from "./config";
 import { DartCommands } from "./providers/dart_commands";
 import { DartCompletionItemProvider } from "./providers/dart_completion_item_provider";
+import { PubspecYamlCompletionItemProvider } from "./providers/pubspec_yaml_completion_item_provider";
 import { DartDefinitionProvider } from "./providers/dart_definition_provider";
 import { DartReferenceProvider } from "./providers/dart_reference_provider";
 import { DartDiagnosticProvider } from "./providers/dart_diagnostic_provider";
@@ -25,6 +26,7 @@ import { ServerStatusNotification } from "./analysis/analysis_server_types";
 import * as debug from "./debug/sdk_path"
 
 const DART_MODE: vs.DocumentFilter = { language: "dart", scheme: "file" };
+const YAML_MODE: vs.DocumentFilter = { language: "yaml", scheme: "file", pattern: "**/pubspec.yaml" };
 const stateLastKnownSdkPathName = "dart.lastKnownSdkPath";
 
 let dartSdkRoot: string;
@@ -74,6 +76,7 @@ export function activate(context: vs.ExtensionContext) {
 	context.subscriptions.push(vs.languages.registerReferenceProvider(DART_MODE, new DartReferenceProvider(analyzer)));
 	context.subscriptions.push(vs.languages.registerWorkspaceSymbolProvider(new DartWorkspaceSymbolProvider(analyzer)));
 	context.subscriptions.push(vs.languages.registerDocumentHighlightProvider(DART_MODE, new DartDocumentHighlightProvider(analyzer)));
+	context.subscriptions.push(vs.languages.registerCompletionItemProvider(YAML_MODE, new PubspecYamlCompletionItemProvider()));
 	context.subscriptions.push(new AnalyzerStatusReporter(analyzer));
 
 	// Set up commands for Dart editors.
