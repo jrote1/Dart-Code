@@ -204,7 +204,7 @@
 	"dependencies": {
 		"vscode-debugadapter": "^1.11.0",
 		"vscode-debugprotocol": "^1.11.0",
-		"js-yaml": "^3.6.1"
+		"yaml-js": "^0.1.3"
 	},
 	"devDependencies": {
 		"typescript": "^1.8.5",
